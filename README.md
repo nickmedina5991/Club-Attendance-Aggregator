@@ -68,7 +68,7 @@ SHPE Attendance/
 3. **Run the script**:
 
 ```bash
-python attendance_aggregator.py
+attendance_aggregator.py
 ```
 
 With no arguments the script scans the folder for all CSV files, skips any already imported, and updates `attendance_summary.xlsx`.
