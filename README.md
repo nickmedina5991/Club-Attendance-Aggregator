@@ -4,6 +4,8 @@ A Python script that merges **UBLinked CSV attendance exports** into a single, a
 
 Built for **UB SHPE** by Nicholas Medina (Club Secretary 2025-26), but works for any club using EngageSUNY / CampusGroups.
 
+https://github.com/nickmedina5991/Club-Attendance-Aggregator
+
 > **tl;dr** Put the script and your CSV files in the same folder. Open that folder in VS Code, open the terminal, and run `python attendance_aggregator.py`. It will scan the folder and create or update `attendance_summary.xlsx` automatically.
 
 ---
