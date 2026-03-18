@@ -122,7 +122,7 @@ No changes are made to `attendance_summary.xlsx` in this case.
 | `Attendance Count` | Total events attended. Rows sorted highest to lowest. |
 | `1/23/2026`, `2/6/2026`, ... | One column per meeting. Checkmark = attended, blank = absent. The totals row shows how many people attended each event. |
 
-Columns are frozen after `Campus Email` so you can scroll right through many dates while names stay visible.
+Columns are frozen after `Attendance Count` so you can scroll right through many dates while names and attendance counts stay visible.
 
 ### `Import Log` sheet
 

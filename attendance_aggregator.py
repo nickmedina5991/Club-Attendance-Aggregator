@@ -283,7 +283,7 @@ def write_excel(records: dict, all_dates: list, path: str, log_entries: list) ->
     date_start    = len(fixed_headers) + 1
  
     ws.append(headers)
-    style_header_row(ws, len(headers), count_col)
+    style_header_row(ws, len(headers), date_start)
     ws.row_dimensions[1].height = 22
  
     sorted_recs = sorted(
@@ -317,7 +317,7 @@ def write_excel(records: dict, all_dates: list, path: str, log_entries: list) ->
     for di in range(date_start, date_start + len(all_dates)):
         ws.column_dimensions[get_column_letter(di)].width = 13
  
-    ws.freeze_panes = "D2"
+    ws.freeze_panes = "E2"
     ws.auto_filter.ref = f"A1:{get_column_letter(len(headers))}1"
  
     log = wb.create_sheet("Import Log")
