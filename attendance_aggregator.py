@@ -20,7 +20,6 @@ Output columns:
  
 Usage:
     python attendance_aggregator.py GBM_02_20_2026.csv GBM_02_27_2026.csv ...
-    python attendance_aggregator.py *.csv
     python attendance_aggregator.py          # processes every *.csv in current directory
 """
 
