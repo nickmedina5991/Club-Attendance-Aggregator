@@ -62,13 +62,13 @@ SHPE Attendance/
    Go to your event, open the *Attendance* tab, and click *Export*. Save the CSV into your folder.
 
 2. **Open a terminal in that folder**
-   - **Windows:** Right-click inside the folder and select *Open in Terminal*
+   - **Windows:**  Open File Explorer and navigate to the desired folder. Click the address bar at the top, type `cmd` (for Command Prompt) or `powershell` (for PowerShell), and press `Enter`.
    - **Mac:** Right-click the folder in Finder and select *New Terminal at Folder*
 
 3. **Run the script**:
 
 ```bash
-attendance_aggregator.py
+python attendance_aggregator.py
 ```
 
 With no arguments the script scans the folder for all CSV files, skips any already imported, and updates `attendance_summary.xlsx`.
