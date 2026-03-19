@@ -59,7 +59,7 @@ SHPE Attendance/
 ### After each meeting
 
 1. **Export attendance from UBLinked**
-   Go to your event, open the *Attendance* tab, and click *Export*. Save the CSV into your folder.
+   Go to your event, open the *Attendance* tab, and click *Export*. Save the CSV into your folder and give it a corresponding file name.
 
 2. **Open a terminal in that folder**
    - **Windows:**  Open File Explorer and navigate to the desired folder. Click the address bar at the top, type `cmd` (for Command Prompt) or `powershell` (for PowerShell), and press `Enter`.
