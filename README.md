@@ -59,7 +59,7 @@ SHPE Attendance/
 ### After each meeting
 
 1. **Export attendance from UBLinked**
-   Go to your event, open the *Track Attendance* tab, and click *Export*. Save the CSV into your folder and give it a unique file name.
+   - Go to your event, open the `Track Attendance` tab, and click `Export`. Save the CSV into your folder and give it a unique file name.
 
 2. **Open a terminal in that folder**
    - **Windows:**  Open File Explorer and navigate to the desired folder. Click the address bar at the top, type `cmd` (for Command Prompt) or `powershell` (for PowerShell), and press `Enter`.
@@ -120,7 +120,7 @@ No changes are made to `attendance_summary.xlsx` in this case.
 | `Last Name` | Member's last name |
 | `Campus Email` | Campus email, used as the unique ID to match members across files |
 | `Attendance Count` | Total events attended. Rows sorted highest to lowest. |
-| `1/23/2026`, `2/6/2026`, ... | One column per meeting. Checkmark = attended, blank = absent. The totals row shows how many people attended each event. |
+| `1/23/2026`, `1/30/2026`, ... | One column per meeting. Checkmark = attended, blank = absent. The totals row shows how many people attended each event. |
 
 Columns are frozen after `Attendance Count` so you can scroll right through many dates while names and attendance counts stay visible.
 
