@@ -20,17 +20,40 @@ Output columns:
  
 Usage:
     python attendance_aggregator.py GBM_02_20_2026.csv GBM_02_27_2026.csv ...
+    python attendance_aggregator.py *.csv
     python attendance_aggregator.py          # processes every *.csv in current directory
 """
 
 import sys, glob, os
 from datetime import datetime
 from io import StringIO
- 
-import pandas as pd
-from openpyxl import Workbook
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.utils import get_column_letter
+
+# Friendly check for missing third-party libraries.
+# Tells users exactly what to run instead of throwing a confusing stack trace.
+try:
+    import pandas as pd
+    from openpyxl import Workbook
+    from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+    from openpyxl.utils import get_column_letter
+except ImportError as e:
+    missing = e.name
+    print()
+    print("=" * 60)
+    print(f" Missing required library: {missing}")
+    print("=" * 60)
+    print()
+    print(" This script needs two libraries that don't come with Python:")
+    print("   - pandas")
+    print("   - openpyxl")
+    print()
+    print(" Run this command once to install both:")
+    print()
+    print("     pip install pandas openpyxl")
+    print()
+    print(" If 'pip' is not recognized, try 'pip3' instead.")
+    print(" After installing, run this script again.")
+    print()
+    sys.exit(1)
  
 OUTPUT_FILE = "attendance_summary.xlsx"
  
@@ -282,7 +305,7 @@ def write_excel(records: dict, all_dates: list, path: str, log_entries: list) ->
     date_start    = len(fixed_headers) + 1
  
     ws.append(headers)
-    style_header_row(ws, len(headers), date_start)
+    style_header_row(ws, len(headers), count_col)
     ws.row_dimensions[1].height = 22
  
     sorted_recs = sorted(
@@ -316,7 +339,7 @@ def write_excel(records: dict, all_dates: list, path: str, log_entries: list) ->
     for di in range(date_start, date_start + len(all_dates)):
         ws.column_dimensions[get_column_letter(di)].width = 13
  
-    ws.freeze_panes = "E2"
+    ws.freeze_panes = "D2"
     ws.auto_filter.ref = f"A1:{get_column_letter(len(headers))}1"
  
     log = wb.create_sheet("Import Log")
@@ -357,6 +380,12 @@ def write_excel(records: dict, all_dates: list, path: str, log_entries: list) ->
  
 # Main
 def main():
+    # When the script is double-clicked, Python's working directory is not
+    # the folder the script lives in. Force it to the script's own folder
+    # so glob("*.csv") and the output file always resolve correctly.
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
+
     if len(sys.argv) > 1:
         csv_files = []
         for arg in sys.argv[1:]:
@@ -367,7 +396,14 @@ def main():
     csv_files = sorted(set(csv_files))
  
     if not csv_files:
-        print("No CSV files found. Pass paths as arguments or run in a folder with *.csv files.")
+        print("No CSV files found in this folder.")
+        print(f"Looking in: {script_dir}")
+        print("Make sure your CSV files are in the same folder as this script.")
+        if sys.stdin.isatty():
+            try:
+                input("\nPress Enter to exit...")
+            except (EOFError, KeyboardInterrupt):
+                pass
         sys.exit(1)
  
     print(f"\nFound {len(csv_files)} CSV file(s).\n")
@@ -386,6 +422,11 @@ def main():
  
     if not csv_files:
         print("\n  Nothing new to import. Exiting.\n")
+        if sys.stdin.isatty():
+            try:
+                input("Press Enter to exit...")
+            except (EOFError, KeyboardInterrupt):
+                pass
         return
  
     print()
@@ -400,6 +441,14 @@ def main():
     print(f"\nWriting '{OUTPUT_FILE}'...")
     write_excel(merged, all_dates, OUTPUT_FILE, log_entries)
     print(f"  Done -> {os.path.abspath(OUTPUT_FILE)}\n")
+
+    # Keep the window open so a double-click user can read the output
+    # before it disappears. Harmless when run from a terminal.
+    if sys.stdin.isatty():
+        try:
+            input("Press Enter to exit...")
+        except (EOFError, KeyboardInterrupt):
+            pass
  
  
 if __name__ == "__main__":
